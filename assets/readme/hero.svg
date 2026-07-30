@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="420" viewBox="0 0 1200 420"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Global Agent Working Guidelines</title>
+  <desc id="desc">A shared, versioned working policy branching into global instruction files for Codex, Claude Code, Kiro, and Hermes Agent.</desc>
+
+  <rect width="1200" height="420" rx="28" fill="#0B0F14"/>
+  <rect x="1" y="1" width="1198" height="418" rx="27" fill="none" stroke="#253140" stroke-width="2"/>
+
+  <g id="title-block" transform="translate(64 58)">
+    <text x="0" y="0"
+          fill="#66E3B4" font-size="18" font-weight="700" letter-spacing="2.4"
+          font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+      MULTI-AGENT · GLOBAL POLICY
+    </text>
+
+    <text x="0" y="80"
+          fill="#F4F6F8" font-size="60" font-weight="760"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif">
+      Global Agent
+    </text>
+    <text x="0" y="146"
+          fill="#F4F6F8" font-size="60" font-weight="760"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif">
+      Working Guidelines
+    </text>
+
+    <text x="0" y="202"
+          fill="#A7B0BC" font-size="24" font-weight="450"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+      One policy. Four agent runtimes.
+    </text>
+
+    <g transform="translate(0 254)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+      <text x="0" y="0" fill="#F2B96B" font-size="22" font-weight="700">&gt;_</text>
+      <text x="50" y="0" fill="#7D8794" font-size="18" letter-spacing="1.2">VERSIONED</text>
+      <circle cx="164" cy="-7" r="3" fill="#3C4653"/>
+      <text x="180" y="0" fill="#7D8794" font-size="18" letter-spacing="1.2">PORTABLE</text>
+      <circle cx="286" cy="-7" r="3" fill="#3C4653"/>
+      <text x="302" y="0" fill="#7D8794" font-size="18" letter-spacing="1.2">REVIEWABLE</text>
+    </g>
+  </g>
+
+  <g id="policy-map" transform="translate(690 48)">
+    <rect x="0" y="0" width="446" height="78" rx="14" fill="#121923" stroke="#66E3B4" stroke-width="2"/>
+    <circle cx="28" cy="27" r="7" fill="#66E3B4"/>
+    <text x="50" y="33" fill="#F4F6F8" font-size="22" font-weight="700"
+          font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">SHARED POLICY</text>
+    <text x="50" y="59" fill="#7D8794" font-size="18"
+          font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">scope · safety · verification</text>
+
+    <path d="M28 78 V324" fill="none" stroke="#3C4653" stroke-width="2"/>
+
+    <g id="codex-file" transform="translate(58 104)">
+      <path d="M-30 30 H0" fill="none" stroke="#3C4653" stroke-width="2"/>
+      <rect width="388" height="58" rx="12" fill="#121923" stroke="#253140" stroke-width="2"/>
+      <text x="22" y="37" fill="#F4F6F8" font-size="21" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">AGENTS.md</text>
+      <text x="360" y="36" text-anchor="end" fill="#66E3B4" font-size="18" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">CODEX</text>
+    </g>
+
+    <g id="claude-file" transform="translate(58 170)">
+      <path d="M-30 30 H0" fill="none" stroke="#3C4653" stroke-width="2"/>
+      <rect width="388" height="58" rx="12" fill="#121923" stroke="#253140" stroke-width="2"/>
+      <text x="22" y="37" fill="#F4F6F8" font-size="21" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">CLAUDE.md</text>
+      <text x="360" y="36" text-anchor="end" fill="#66E3B4" font-size="18" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">CLAUDE CODE</text>
+    </g>
+
+    <g id="kiro-file" transform="translate(58 236)">
+      <path d="M-30 30 H0" fill="none" stroke="#3C4653" stroke-width="2"/>
+      <rect width="388" height="58" rx="12" fill="#121923" stroke="#253140" stroke-width="2"/>
+      <text x="22" y="37" fill="#F4F6F8" font-size="21" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">KIRO.md</text>
+      <text x="360" y="36" text-anchor="end" fill="#66E3B4" font-size="18" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">KIRO</text>
+    </g>
+
+    <g id="hermes-file" transform="translate(58 302)">
+      <path d="M-30 30 H0" fill="none" stroke="#3C4653" stroke-width="2"/>
+      <rect width="388" height="58" rx="12" fill="#121923" stroke="#253140" stroke-width="2"/>
+      <text x="22" y="37" fill="#F4F6F8" font-size="21" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">SOUL.md</text>
+      <text x="360" y="36" text-anchor="end" fill="#66E3B4" font-size="18" font-weight="700"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">HERMES</text>
+    </g>
+  </g>
+</svg>
