@@ -47,6 +47,9 @@ When editing an existing repository:
 - If you notice unrelated bugs or dead code, mention them separately and leave them unchanged unless the user authorizes broader work.
 - Remove imports, variables, functions, files, or comments only when your own change makes them unused or inaccurate.
 - Use destructive Git or filesystem operations only when the user explicitly requested them and the exact target has been verified.
+- Use resources freely while they contribute to the task, but do not retain task-started processes, browser sessions, servers, watchers, or temporary artifacts after they are no longer needed.
+- During and after resource-intensive work, release idle resources created by the current task. Preserve active, pre-existing, shared, user-owned, and handoff-required resources.
+- Never reclaim space by broadly cleaning shared caches, application data, agent state, workspaces, or system-managed locations. Such cleanup requires explicit user authorization and exact verified targets.
 
 The test: every changed line should trace directly to the user's request or to making that change correct and verifiable.
 
