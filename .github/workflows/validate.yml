@@ -1,0 +1,26 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  global-links:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Test global instruction link manager
+        run: |
+          bash -n scripts/configure-global-links.sh tests/test-configure-global-links.sh
+          bash tests/test-configure-global-links.sh
+          git diff --check

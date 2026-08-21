@@ -27,7 +27,17 @@
 
 ## 快速安装
 
-推荐使用符号链接，让仓库中的后续修改自动同步到各工具：
+在 Linux 或 WSL 中，把仓库克隆到准备长期保留的固定路径，然后使用项目脚本检查并安装符号链接：
+
+```bash
+bash scripts/configure-global-links.sh --check
+bash scripts/configure-global-links.sh --install
+```
+
+`--install` 会为 Codex、Claude Code、Kiro 和 Hermes 预先创建全局入口。已有文件或错误链接不会被覆盖，而是移动到 `~/.local/state/ai-build-up/backups/` 后再建立链接；重复运行不会创建额外备份。`CODEX_HOME`、`KIRO_HOME`、`HERMES_HOME` 和 `XDG_STATE_HOME` 会在设置时得到尊重。
+
+<details>
+<summary>手动安装</summary>
 
 ```bash
 PROMPT_REPO="/absolute/path/to/System Prompt"
@@ -40,10 +50,11 @@ ln -s "$PROMPT_REPO/KIRO.md" "$HOME/.kiro/steering/AGENTS.md"
 ln -s "$PROMPT_REPO/SOUL.md" "$HOME/.hermes/SOUL.md"
 ```
 
-> [!CAUTION]
-> 命令故意不使用强制覆盖选项。如果目标文件已经存在，请先比较内容并移动到一个不会冲突的备份路径。Hermes 通常会在首次运行时生成默认 `SOUL.md`，部署本仓库版本前尤其需要先审阅原文件。
+手动命令故意不使用强制覆盖选项。如果目标文件已经存在，请先比较内容并移动到备份路径。Hermes 通常会在首次运行时生成默认 `SOUL.md`，部署本仓库版本前尤其需要先审阅原文件。
 
-如果设置了 `CODEX_HOME`、`KIRO_HOME` 或 `HERMES_HOME`，请把目标改到相应目录。不方便使用符号链接时也可以复制文件，但后续更新需要手动重新同步。Windows 原生环境创建符号链接可能需要 Developer Mode 或管理员权限。
+</details>
+
+Windows 原生环境创建符号链接可能需要 Developer Mode 或管理员权限。不方便使用符号链接时可以复制文件，但后续更新需要手动重新同步。
 
 ## 确认已经生效
 
@@ -57,6 +68,12 @@ ln -s "$PROMPT_REPO/SOUL.md" "$HOME/.hermes/SOUL.md"
 | Hermes | 先运行 `hermes prompt-size` 检查提示词组成，再让新会话概述长期工作准则 |
 
 这些检查验证“文件被加载”；真实效果还应通过日常任务观察，并根据重复出现的偏差继续精修规则。
+
+## 更新闭环与恢复
+
+符号链接把这个仓库变成当前电脑的配置源：日常使用中发现稳定、可复现的改进项后，直接修改对应源文件，审阅并验证差异，再提交到 Git。其他电脑拉取同一仓库后会立即获得文件更新；Agent 已经启动时仍应开启新会话，让它重新加载指令。
+
+如果本机仓库被误删，链接会失效，但目标工具的其他状态不会被删除。把远程仓库重新克隆到原路径即可恢复现有链接；如果改用了新路径，重新运行 `--install`。源文件、Git 远程和各电脑 checkout 共同提供可审阅、可回退的恢复链路，认证信息和机器专属配置不应写入本仓库。
 
 ## 指令应该放在哪一层
 
@@ -75,8 +92,8 @@ Hermes 的全局 `SOUL.md` 与项目级 `AGENTS.md` 是独立层：前者定义�
 1. 先在 `AGENTS.md` 中形成通用行为规则。
 2. 同步到 `CLAUDE.md`、`KIRO.md` 和 `SOUL.md`，保留各工具的作用域和权限术语。
 3. 检查每一行是否真的改变代理行为，删除重复、失效和只复述默认行为的内容。
-4. 运行 `git diff --check`，审阅完整 diff，再分别启动新会话验证加载。
-5. 将一组逻辑完整的变化保存为独立提交，便于比较效果和安全回退。
+4. 运行 `bash tests/test-configure-global-links.sh` 和 `git diff --check`，审阅完整 diff，再分别启动新会话验证加载；PR 和 `main` 推送会重复执行链接管理测试。
+5. 将一组逻辑完整的变化保存为独立提交，便于比较效果和安全回退；其他电脑拉取后运行 `bash scripts/configure-global-links.sh --check` 检查漂移。
 
 ## 官方文档
 
