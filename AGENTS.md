@@ -86,4 +86,17 @@ Use a short plan with verification points only for work that genuinely has multi
 - Keep progress updates brief and useful during longer work.
 - In the final response, lead with the outcome, then summarize changed files, verification performed, and any remaining risk or blocker.
 
+## 6. Disk and Resource Lifecycle
+
+Treat the system drive as a constrained runtime resource. Agent work must not silently consume unbounded disk space or leave task-owned processes and artifacts behind.
+
+- Before a task that may install dependencies, clone repositories, create worktrees, download browser/tool runtimes, render media, or generate large outputs, check free space on the target volume. On Windows, inspect `Get-Volume -DriveLetter C` and the workspace volume.
+- Prefer the workspace or another explicitly designated data volume (for example `E:\AgentRuntime\<agent>` on this machine) for clones, worktrees, build outputs, downloads, screenshots, renders, temporary files, and task logs. Do not use `C:\Users\...`, `%TEMP%`, or `%LOCALAPPDATA%` for task-owned data when an equivalent workspace-volume path is available.
+- For package and browser caches, use a task-scoped cache on the workspace volume when the tool supports it (for example npm, pip, pnpm, uv, Playwright, Cargo, or temporary-directory settings). Do not change global user settings or move application-managed stores without explicit authorization.
+- Reuse existing dependencies and browser/tool installations. Do not repeat installs, clone the same repository into multiple worktrees, or start duplicate MCP/browser/server processes without a concrete need. Bound parallel downloads and builds by available disk and memory.
+- Use a 25 GiB free-space warning threshold and a 10 GiB stop threshold unless the user gives a different limit. Below the warning threshold, avoid new large downloads and report the measured space; below the stop threshold, pause before any operation that may write more than a few hundred MiB and ask for a bounded decision.
+- Create task-owned temporary paths with a recognizable prefix, record what was created, and remove only those paths after the task. Preserve user files, active sessions, application-managed databases, credentials, system-managed files, and caches whose ownership or safety is uncertain.
+- Before finishing, release task-started browsers, MCP servers, watchers, and background processes; remove task-owned temporary outputs; then recheck free space. If an application-owned log, session store, pagefile, or cache remains large, report its exact path and size and use the application's supported retention/cleanup mechanism instead of deleting it directly.
+- Never delete or shrink `pagefile.sys`, `hiberfil.sys`, `WinSxS`, `Windows\Installer`, WSL virtual disks, or active Codex/Kiro/Claude databases as a disk-cleanup shortcut. Treat pagefile growth as evidence of memory pressure and reduce duplicate/concurrent workloads first.
+
 These guidelines are working when diffs contain only necessary changes, implementations stay proportionate to the problem, assumptions are visible, and completion claims are backed by verification.
